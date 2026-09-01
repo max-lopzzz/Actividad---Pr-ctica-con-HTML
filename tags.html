@@ -4,81 +4,154 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Etiquetas HTML</title>
+
+    <!-- Bootstrap CSS (CDN) -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <!-- Estilos propios -->
+    <link href="style.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <h1>Uso de Etiquetas HTML</h1>
-        <nav>
-            <a href="index.html">Inicio</a> |
-            <a href="tags.html">Etiquetas</a> |
-            <a href="profile.html">Perfil</a>
-        </nav>
-    </header>
+    <!-- Navbar Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Mi Sitio Web</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="tags.html">Etiquetas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Perfil</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <div>
-        <h2>Párrafos y saltos de línea</h2>
-        <p>
-            Este es un párrafo de ejemplo utilizando la etiqueta <strong>&lt;p&gt;</strong>.
-            <br />
-            Esta segunda línea aparece después de un salto de línea con <strong>&lt;br /&gt;</strong>.
-        </p>
-    </div>
+    <div class="container">
+        <h1 class="text-center mt-4 mb-4">Uso de Etiquetas HTML</h1>
 
-    <div>
-        <h2>Texto en negrita, superíndice y subíndice</h2>
-        <p>
-            La palabra <strong>importante</strong> está resaltada con la etiqueta &lt;strong&gt;.
-        </p>
-        <p>
-            Fórmula química del agua: H<sub>2</sub>O
-            <br />
-            Ecuación matemática: E = mc<sup>2</sup>
-        </p>
-    </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h4">Párrafos y saltos de línea</h2>
+                        <p>
+                            Este es un párrafo de ejemplo utilizando la etiqueta <strong>&lt;p&gt;</strong>.
+                            <br />
+                            Esta segunda línea aparece después de un salto de línea con <strong>&lt;br /&gt;</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-    <div>
-        <h2>Listas</h2>
-        <ul>
-            <li>Elemento de lista sin orden 1</li>
-            <li>Elemento de lista sin orden 2</li>
-            <li>Elemento de lista sin orden 3</li>
-        </ul>
-        <ol>
-            <li>Primer paso</li>
-            <li>Segundo paso</li>
-            <li>Tercer paso</li>
-        </ol>
-    </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h4">Texto en negrita, superíndice y subíndice</h2>
+                        <p>
+                            La palabra <strong>importante</strong> está resaltada con la etiqueta &lt;strong&gt;.
+                        </p>
+                        <p class="texto-destacado">
+                            Fórmula química del agua: H<sub>2</sub>O
+                            <br />
+                            Ecuación matemática: E = mc<sup>2</sup>
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-    <div>
-        <h2>Enlaces e imágenes</h2>
-        <p>
-            Este es un enlace externo a
-            <a href="https://developer.mozilla.org/es/docs/Web/HTML" target="_blank">MDN Web Docs</a>.
-        </p>
-        <img src="https://via.placeholder.com/300x150" alt="Imagen de ejemplo" width="300" height="150" />
-    </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h4">Listas</h2>
+                        <p class="fw-bold mb-1">Lista sin orden:</p>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item">Elemento de lista sin orden 1</li>
+                            <li class="list-group-item">Elemento de lista sin orden 2</li>
+                            <li class="list-group-item">Elemento de lista sin orden 3</li>
+                        </ul>
+                        <p class="fw-bold mb-1">Lista ordenada:</p>
+                        <ol class="list-group list-group-numbered">
+                            <li class="list-group-item">Primer paso</li>
+                            <li class="list-group-item">Segundo paso</li>
+                            <li class="list-group-item">Tercer paso</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
 
-    <div>
-        <h2>Tabla</h2>
-        <table border="1">
-            <tr>
-                <th>Etiqueta</th>
-                <th>Uso</th>
-            </tr>
-            <tr>
-                <td>&lt;p&gt;</td>
-                <td>Define un párrafo</td>
-            </tr>
-            <tr>
-                <td>&lt;img&gt;</td>
-                <td>Inserta una imagen</td>
-            </tr>
-        </table>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <h2 class="h4 text-start">Enlaces e imágenes</h2>
+                        <p class="text-start">
+                            Este es un enlace externo a
+                            <a href="https://developer.mozilla.org/es/docs/Web/HTML" target="_blank">MDN Web Docs</a>.
+                        </p>
+                        <img
+                            src="https://via.placeholder.com/300x150"
+                            alt="Imagen de ejemplo"
+                            class="img-fluid rounded-circle"
+                            width="150"
+                            height="150"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="h4">Tabla</h2>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Etiqueta</th>
+                                        <th>Uso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>&lt;p&gt;</code></td>
+                                        <td>Define un párrafo</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>&lt;img&gt;</code></td>
+                                        <td>Inserta una imagen</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer>
         <p>Página de práctica de etiquetas HTML.</p>
     </footer>
+
+    <!-- Bootstrap JS Bundle (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

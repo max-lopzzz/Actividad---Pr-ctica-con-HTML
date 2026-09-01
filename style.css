@@ -1,0 +1,108 @@
+/* =========================================================
+   style.css - Hoja de estilos principal
+   Sitio web de práctica HTML + Bootstrap
+   ========================================================= */
+
+:root {
+  --color-primario: #2c3e50;
+  --color-secundario: #16a085;
+  --color-texto-general: #4a4a4a;
+  --color-fondo: #f7f9fb;
+}
+
+/* ---------- Base ---------- */
+body {
+  background-color: var(--color-fondo);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ---------- Encabezados ---------- */
+h1,
+h2 {
+  color: var(--color-primario);
+  font-weight: 600;
+}
+
+/* ---------- Párrafos ----------
+   1) Un párrafo específico con id -> color distinto
+   2) Algunos párrafos con clase compartida -> color distinto
+   3) El resto de los párrafos -> color general del sitio
+--------------------------------------------------------- */
+
+/* 1. Selector por ID: solo un párrafo del sitio (bienvenida en login) */
+#texto-bienvenida {
+  color: #c0392b;
+  font-weight: 500;
+}
+
+/* 2. Selector por clase: párrafos destacados/informativos en varias páginas */
+.texto-destacado {
+  color: var(--color-secundario);
+  font-style: italic;
+}
+
+/* 3. Selector general: todos los demás párrafos */
+p {
+  color: var(--color-texto-general);
+  line-height: 1.7;
+}
+
+/* ---------- Imágenes circulares en todo el sitio ---------- */
+img {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-secundario);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------- Navbar ---------- */
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Tarjeta de login ---------- */
+.login-card {
+  max-width: 420px;
+  margin: 3rem auto;
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.login-card .card-header {
+  background-color: var(--color-primario);
+  color: #fff;
+  border-radius: 1rem 1rem 0 0;
+  text-align: center;
+}
+
+/* ---------- Tarjeta de perfil ---------- */
+.profile-card {
+  max-width: 500px;
+  margin: 2rem auto;
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card img {
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin: 0 auto 1rem auto;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  background-color: var(--color-primario);
+  color: #f1f1f1;
+  text-align: center;
+  padding: 1.2rem 0;
+  margin-top: 3rem;
+}
+
+footer p {
+  color: #f1f1f1;
+  margin: 0;
+}
