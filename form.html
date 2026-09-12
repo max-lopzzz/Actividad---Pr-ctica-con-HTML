@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario</title>
+
+    <!-- Bootstrap CSS (CDN) -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <!-- Estilos propios -->
+    <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navbar Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Mi Sitio Web</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tags.html">Etiquetas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="form.html">Formulario</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center mt-4">Formulario de Contacto</h1>
+
+        <div class="card form-card">
+            <div class="card-body">
+                <form id="contacto-form">
+                    <!-- Radio buttons -->
+                    <fieldset class="mb-4">
+                        <legend class="h5">¿Cómo prefieres que te contactemos?</legend>
+
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="metodo-contacto"
+                                id="contacto-email"
+                                value="email"
+                            />
+                            <label class="form-check-label" for="contacto-email">Correo electrónico</label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="metodo-contacto"
+                                id="contacto-telefono"
+                                value="telefono"
+                            />
+                            <label class="form-check-label" for="contacto-telefono">Teléfono</label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="metodo-contacto"
+                                id="contacto-ninguno"
+                                value="ninguno"
+                            />
+                            <label class="form-check-label" for="contacto-ninguno">Prefiero no ser contactado</label>
+                        </div>
+
+                        <!-- Contenido oculto que aparece según el radio button elegido -->
+                        <div id="campo-email" class="mt-3" hidden>
+                            <label for="input-email" class="form-label">Escribe tu correo</label>
+                            <input type="email" class="form-control" id="input-email" placeholder="tucorreo@ejemplo.com" />
+                        </div>
+                        <div id="campo-telefono" class="mt-3" hidden>
+                            <label for="input-telefono" class="form-label">Escribe tu teléfono</label>
+                            <input type="tel" class="form-control" id="input-telefono" placeholder="10 dígitos" />
+                        </div>
+                    </fieldset>
+
+                    <!-- Dropdowns de país y región -->
+                    <fieldset class="mb-4">
+                        <legend class="h5">Ubicación</legend>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="select-pais" class="form-label">País</label>
+                                <select class="form-select" id="select-pais">
+                                    <option value="">Selecciona un país</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="select-region" class="form-label">Región / Estado</label>
+                                <select class="form-select" id="select-region" disabled>
+                                    <option value="">Selecciona primero un país</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Checkboxes -->
+                    <fieldset class="mb-4">
+                        <legend class="h5">Confirmación</legend>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="check-terminos" />
+                            <label class="form-check-label" for="check-terminos">Acepto los términos y condiciones</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="check-mayor-edad" />
+                            <label class="form-check-label" for="check-mayor-edad">Confirmo que soy mayor de edad</label>
+                        </div>
+                    </fieldset>
+
+                    <div class="d-grid">
+                        <button type="submit" id="btn-enviar" class="btn btn-success" disabled>Enviar formulario</button>
+                    </div>
+                    <div id="form-mensaje" class="alert alert-success mt-3" role="alert" hidden></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Página de formulario - práctica de JavaScript.</p>
+    </footer>
+
+    <!-- Bootstrap JS Bundle (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="country-region-data.js"></script>
+    <script src="form.js"></script>
+</body>
+</html>

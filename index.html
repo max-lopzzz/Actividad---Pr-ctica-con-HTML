@@ -40,6 +40,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="profile.html">Perfil</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="form.html">Formulario</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -57,7 +60,7 @@
                     Recuerda que tu <strong>contraseña</strong> es confidencial.
                 </p>
 
-                <form>
+                <form id="login-form" novalidate>
                     <div class="mb-3">
                         <label for="username" class="form-label">Usuario</label>
                         <input
@@ -81,12 +84,11 @@
                     <div class="d-grid">
                         <button type="submit" class="btn btn-success">Ingresar</button>
                     </div>
+                    <div id="login-mensaje" class="alert mt-3" role="alert" hidden></div>
                 </form>
 
                 <p class="texto-destacado mt-3">
-                    Este formulario aún no tiene funcionalidad, solo contenido<sup>*</sup>.
-                    <br />
-                    <sub>*Se agregará estilo y funcionalidad en próximas prácticas.</sub>
+                    Usuario de prueba: <strong>admin</strong> · Contraseña de prueba: <strong>1234</strong>
                 </p>
             </div>
         </div>
@@ -98,5 +100,6 @@
 
     <!-- Bootstrap JS Bundle (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

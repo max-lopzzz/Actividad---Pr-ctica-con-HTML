@@ -106,3 +106,29 @@ footer p {
   color: #f1f1f1;
   margin: 0;
 }
+
+/* ---------- Tema oscuro (toggle con JS) ---------- */
+body.tema-oscuro {
+  background-color: #1c1f24;
+}
+
+body.tema-oscuro .card {
+  background-color: #2a2e35;
+  color: #f1f1f1;
+}
+
+body.tema-oscuro h1,
+body.tema-oscuro h2,
+body.tema-oscuro p,
+body.tema-oscuro strong {
+  color: #f1f1f1;
+}
+
+/* ---------- Formulario (form.html) ---------- */
+.form-card {
+  max-width: 640px;
+  margin: 2rem auto;
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
