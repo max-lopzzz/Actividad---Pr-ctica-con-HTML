@@ -73,16 +73,45 @@ function inicializarCheckboxes() {
     checkMayorEdad.addEventListener("change", actualizarBoton);
 }
 
-// ---------- Envío del formulario ----------
+// ---------- Envío del formulario -> POST /contactos (REST-API) ----------
 function inicializarEnvioFormulario() {
     const form = document.getElementById("contacto-form");
     if (!form) return;
 
-    form.addEventListener("submit", function (evento) {
+    form.addEventListener("submit", async function (evento) {
         evento.preventDefault();
         const mensaje = document.getElementById("form-mensaje");
-        mensaje.hidden = false;
-        mensaje.textContent = "¡Formulario enviado correctamente!";
+        const botonEnviar = document.getElementById("btn-enviar");
+        const metodo = form.querySelector('input[name="metodo-contacto"]:checked');
+
+        if (!metodo) {
+            mostrarMensaje(mensaje, "Elige cómo prefieres que te contactemos.", "warning");
+            return;
+        }
+
+        botonEnviar.disabled = true;
+        try {
+            await apiFetch("/contactos", {
+                method: "POST",
+                body: {
+                    metodo: metodo.value,
+                    email: document.getElementById("input-email").value.trim(),
+                    telefono: document.getElementById("input-telefono").value.trim(),
+                    pais: document.getElementById("select-pais").value,
+                    region: document.getElementById("select-region").value,
+                },
+            });
+            mostrarMensaje(mensaje, "¡Formulario enviado correctamente!", "success");
+            form.reset();
+            document.getElementById("campo-email").hidden = true;
+            document.getElementById("campo-telefono").hidden = true;
+            const selectRegion = document.getElementById("select-region");
+            selectRegion.innerHTML = '<option value="">Selecciona primero un país</option>';
+            selectRegion.disabled = true;
+        } catch (error) {
+            mostrarMensaje(mensaje, error.message, "danger");
+            botonEnviar.disabled = false;
+        }
     });
 }
 

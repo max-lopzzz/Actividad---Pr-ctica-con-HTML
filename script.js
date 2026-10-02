@@ -1,34 +1,159 @@
 // script.js
-// Parte 2: funcionalidad principal del sitio (login, botones interactivos)
+// Parte 2: funcionalidad principal del sitio (login, registro, perfil, botones interactivos)
+// Usa las funciones de api.js para comunicarse con la REST-API
 
-// ---------- Credenciales de prueba (solo front-end, sin backend) ----------
-const USUARIO_VALIDO = "admin";
-const PASSWORD_VALIDO = "1234";
-
-// ---------- Login (index.html) ----------
+// ---------- Login (index.html) -> POST /login ----------
 function inicializarLogin() {
     const form = document.getElementById("login-form");
     if (!form) return;
 
-    form.addEventListener("submit", function (evento) {
+    form.addEventListener("submit", async function (evento) {
         evento.preventDefault();
 
-        const usuario = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
         const mensaje = document.getElementById("login-mensaje");
+        const boton = form.querySelector("button[type=submit]");
 
-        if (usuario === USUARIO_VALIDO && password === PASSWORD_VALIDO) {
-            mensaje.className = "alert alert-success mt-3";
-            mensaje.textContent = "Inicio de sesión correcto. Redirigiendo...";
-            mensaje.hidden = false;
+        if (!email || !password) {
+            mostrarMensaje(mensaje, "Escribe tu correo y tu contraseña.", "warning");
+            return;
+        }
+
+        boton.disabled = true;
+        try {
+            const datos = await apiFetch("/login", {
+                method: "POST",
+                body: { email, password },
+            });
+            guardarSesion(datos.user);
+            mostrarMensaje(mensaje, "Inicio de sesión correcto. Redirigiendo...", "success");
             setTimeout(function () {
                 window.location.href = "profile.html";
             }, 900);
-        } else {
-            mensaje.className = "alert alert-danger mt-3";
-            mensaje.textContent = "Usuario o contraseña incorrectos. Intenta de nuevo.";
-            mensaje.hidden = false;
+        } catch (error) {
+            mostrarMensaje(mensaje, error.message, "danger");
+            boton.disabled = false;
         }
+    });
+}
+
+// ---------- Registro (registro.html) -> POST /users ----------
+function inicializarRegistro() {
+    const form = document.getElementById("registro-form");
+    if (!form) return;
+
+    form.addEventListener("submit", async function (evento) {
+        evento.preventDefault();
+
+        const nombre = document.getElementById("reg-nombre").value.trim();
+        const email = document.getElementById("reg-email").value.trim();
+        const password = document.getElementById("reg-password").value;
+        const confirmar = document.getElementById("reg-confirmar").value;
+        const mensaje = document.getElementById("registro-mensaje");
+        const boton = form.querySelector("button[type=submit]");
+
+        if (!nombre || !email || !password) {
+            mostrarMensaje(mensaje, "Llena todos los campos.", "warning");
+            return;
+        }
+        if (password !== confirmar) {
+            mostrarMensaje(mensaje, "Las contraseñas no coinciden.", "warning");
+            return;
+        }
+
+        boton.disabled = true;
+        try {
+            const usuario = await apiFetch("/users", {
+                method: "POST",
+                body: { nombre, email, password },
+            });
+            guardarSesion({ id: usuario.id, nombre: usuario.nombre, email: usuario.email });
+            mostrarMensaje(mensaje, "Cuenta creada. Redirigiendo a tu perfil...", "success");
+            setTimeout(function () {
+                window.location.href = "profile.html";
+            }, 900);
+        } catch (error) {
+            mostrarMensaje(mensaje, error.message, "danger");
+            boton.disabled = false;
+        }
+    });
+}
+
+// ---------- Perfil (profile.html) -> GET / PUT / DELETE /users/:id ----------
+async function inicializarPerfil() {
+    const contenedor = document.getElementById("perfil-datos");
+    if (!contenedor) return;
+
+    const sesion = obtenerSesion();
+    if (!sesion) {
+        window.location.href = "index.html";
+        return;
+    }
+
+    const mensaje = document.getElementById("perfil-mensaje");
+    const form = document.getElementById("perfil-form");
+
+    function pintarUsuario(usuario) {
+        document.getElementById("perfil-nombre").textContent = usuario.nombre;
+        document.getElementById("perfil-email").textContent = usuario.email;
+        document.getElementById("perfil-fecha").textContent = new Date(usuario.created_at).toLocaleDateString("es-MX", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+        document.getElementById("edit-nombre").value = usuario.nombre;
+        document.getElementById("edit-email").value = usuario.email;
+    }
+
+    try {
+        const usuario = await apiFetch("/users/" + sesion.id);
+        pintarUsuario(usuario);
+        contenedor.hidden = false;
+    } catch (error) {
+        mostrarMensaje(mensaje, error.message, "danger");
+        if (error.message === "Usuario no encontrado") {
+            cerrarSesion();
+        }
+        return;
+    }
+
+    form.addEventListener("submit", async function (evento) {
+        evento.preventDefault();
+
+        const cambios = {
+            nombre: document.getElementById("edit-nombre").value.trim(),
+            email: document.getElementById("edit-email").value.trim(),
+        };
+        const password = document.getElementById("edit-password").value;
+        if (password) cambios.password = password;
+
+        try {
+            const usuario = await apiFetch("/users/" + sesion.id, { method: "PUT", body: cambios });
+            guardarSesion({ id: usuario.id, nombre: usuario.nombre, email: usuario.email });
+            pintarUsuario(usuario);
+            document.getElementById("edit-password").value = "";
+            mostrarMensaje(mensaje, "Datos actualizados.", "success");
+        } catch (error) {
+            mostrarMensaje(mensaje, error.message, "danger");
+        }
+    });
+
+    document.getElementById("btn-eliminar").addEventListener("click", async function () {
+        if (!confirm("¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")) return;
+
+        try {
+            await apiFetch("/users/" + sesion.id, { method: "DELETE" });
+            cerrarSesion();
+            window.location.href = "index.html";
+        } catch (error) {
+            mostrarMensaje(mensaje, error.message, "danger");
+        }
+    });
+
+    document.getElementById("btn-logout").addEventListener("click", function () {
+        cerrarSesion();
+        window.location.href = "index.html";
     });
 }
 
@@ -60,6 +185,8 @@ function inicializarBotonTabla() {
 
 document.addEventListener("DOMContentLoaded", function () {
     inicializarLogin();
+    inicializarRegistro();
+    inicializarPerfil();
     inicializarBotonTema();
     inicializarBotonTabla();
 });

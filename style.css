@@ -93,6 +93,12 @@ img {
   margin: 0 auto 1rem auto;
 }
 
+.profile-alerta {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ---------- Footer ---------- */
 footer {
   background-color: var(--color-primario);
