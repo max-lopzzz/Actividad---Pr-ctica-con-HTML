@@ -1,5 +1,5 @@
 // script.js
-// Parte 2: funcionalidad principal del sitio (login, registro, perfil, botones interactivos)
+// Parte 2: funcionalidad principal del sitio (login, registro, perfil, juego, botones interactivos)
 // Usa las funciones de api.js para comunicarse con la REST-API
 
 // ---------- Login (index.html) -> POST /login ----------
@@ -102,6 +102,7 @@ async function inicializarPerfil() {
             month: "long",
             day: "numeric",
         });
+        document.getElementById("perfil-puntos").textContent = usuario.puntos ?? 0;
         document.getElementById("edit-nombre").value = usuario.nombre;
         document.getElementById("edit-email").value = usuario.email;
     }
@@ -157,6 +158,39 @@ async function inicializarPerfil() {
     });
 }
 
+// ---------- Juego (juego.html) -> iframe con el ID del usuario + GET /game/:id ----------
+async function inicializarJuego() {
+    const iframe = document.getElementById("juego-iframe");
+    if (!iframe) return;
+
+    const sesion = obtenerSesion();
+    if (!sesion) {
+        window.location.href = "index.html";
+        return;
+    }
+
+    // El juego de Unity lee user_id (y la URL de la API) de su propia URL
+    iframe.src = "game/index.html?user_id=" + encodeURIComponent(sesion.id) + "&api=" + encodeURIComponent(API_URL);
+
+    const mensaje = document.getElementById("juego-mensaje");
+
+    async function cargarPuntos() {
+        try {
+            const datos = await apiFetch("/game/" + sesion.id);
+            document.getElementById("juego-nombre").textContent = datos.nombre;
+            document.getElementById("juego-id").textContent = datos.id;
+            document.getElementById("juego-puntos").textContent = datos.puntos;
+            document.getElementById("juego-datos").hidden = false;
+            mensaje.hidden = true;
+        } catch (error) {
+            mostrarMensaje(mensaje, error.message, "danger");
+        }
+    }
+
+    document.getElementById("btn-actualizar-puntos").addEventListener("click", cargarPuntos);
+    await cargarPuntos();
+}
+
 // ---------- Botón "Cambiar tema" (profile.html) ----------
 function inicializarBotonTema() {
     const boton = document.getElementById("btn-tema");
@@ -187,6 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
     inicializarLogin();
     inicializarRegistro();
     inicializarPerfil();
+    inicializarJuego();
     inicializarBotonTema();
     inicializarBotonTabla();
 });
