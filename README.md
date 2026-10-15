@@ -28,6 +28,6 @@ La URL de la API está en `api.js` (`API_URL`, por defecto `http://localhost:400
 - El juego lee `user_id` de su URL y trae el nombre y los puntos con `GET /game/:id`.
 - Clippy junta las bananas de Bonzi (+10 cada una) y esquiva sus cáscaras.
 - El botón **Guardar puntaje** (o la tecla **G**) guarda los puntos con `PUT /game/:id` y body `{puntos}`.
-- Si Bonzi deja a Clippy sin energía se pierden los puntos que no se guardaron.
+- Si Bonzi deja a Clippy sin energía, el puntaje se guarda automáticamente con `PUT /game/:id`.
 
 El código del juego (proyecto de Unity) está en https://github.com/max-lopzzz/clippy-vs-bonzi
